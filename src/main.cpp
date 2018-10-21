@@ -80,7 +80,6 @@ void loop() {
         Serial.println(messages);
         client.publish(outTopic, messages);
         lastTime = millis();
-        
     }
 
 
