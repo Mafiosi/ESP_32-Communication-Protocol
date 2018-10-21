@@ -2,19 +2,32 @@
   Blink
 */
 #include <Arduino.h>
-// ledPin refers to ESP32 GPIO 23
-const int ledPin = 23;
+#include <WiFi.h>
 
-// the setup function runs once when you press reset or power the board
-void setup() {
-  // initialize digital pin ledPin as an output.
-  pinMode(ledPin, OUTPUT);
+const char* ssid = "abeleza";
+const char* pass = "abeleza123456";
+
+void setupWifi(){
+    delay(100);
+    Serial.print("\Connecting to");
+    Serial.println(ssid);
+
+    WiFi.begin(ssid, pass);
+
+    while(WiFi.status() != WL_CONNECTED){
+        delay(100);
+        Serial.print("-");
+    }
+
+    Serial.print("\nConnected");
+    Serial.print(ssid);
+
 }
 
-// the loop function runs over and over again forever
+void setup() {
+    Serial.print(115200);
+    setupWifi();
+}
+
 void loop() {
-  digitalWrite(ledPin, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                  // wait for a second
-  digitalWrite(ledPin, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                  // wait for a second
 }
