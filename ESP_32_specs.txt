@@ -1,0 +1,57 @@
+ESP 8266 (should be the same for 32)
+
+######    SLEEP MODES    ######
+Sleep MODE - to do it (ESP.deepSleep(time_in_micro_sencods))
+~20uA
+Contudo o regulador voltagem ainda gasta 3 mA e conversor USB gasta 15mA - ele irá gastar na realidade 18mA
+
+conversor USB - regulador interno que pode ser controlado
+Pull Down/UP pode tambem influenciar o consumo
+
+Power Down MODE - needs external reset (pin3_PDWN, CH_PD, input) - linha PWUP fica a 1 e reanima o sistema
+Perifericos desligam tambem - humm....
+~0.5uA
+
+
+
+######    ACTIVITY TIME    ######
+Tempo de arranque consome mais
+Ligação WIFI - too bad
+Ligaçao servidor com atrasos pode levar a maior consumo
+Ligaçao sensor pode demorar tempo e consome
+
+
+SOLUTION
+ligar sensor, fazer outras tarefas (WIFI and shit), ler valor de sensor, entrar sleep MODE
+
+RECOMMENDATIONS
+Durante ligação de sensor pode desligar-se WiFi
+COnexão WIFI é guardada em flash, melhora tempo de vida se considerarmos dados login nao persistentes
+IP fixo ajuda a poupar montes de bateria (half)
+Passar BSSID, Channel inicialmente (guardados de forma persistente)
+
+
+
+######    BATERY    ######
+se recarregavel cuidado com overcharging
+Considerar Temperatura
+Uso de regulador comutado para input bateria
+
+
+
+######    MEASURE    ######
+considerar - https://oregonembedded-com/batterycalc.htm
+
+
+
+######    ESP 32    ######
+Leitura de medidas pelo ULP (consumo muito mais baixo) que acorda main CPU caso necessário
+wake-up pode ser feito de varias maneiras - RTC, Touch, ULP, ~UART
+Deep-sleep sem desligar Wifi pode levar a caos (no wakkie wakkie no more)
+
+
+
+######    NOTES    ######
+https://micropython.org/
+https://medium.com/@ignis2497/iot-micropython-with-esp-8266-through-mosquitto-mqtt-4eafbbc2f9e8
+excel autonomia - Maxims, Texas Instruments
