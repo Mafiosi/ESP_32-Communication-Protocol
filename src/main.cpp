@@ -47,7 +47,6 @@ void setupPin(){
 }
 
 //##  MQTT  ##
-
 //Check Mqtt Connection
 void check_mqtt_conn(){
     while(!client.connected()){
